@@ -1,0 +1,31 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "prisma:client": "npx prisma generate",
+    "prisma:generate": "npx prisma migrate dev",
+    "prisma:generate-empty": "npx prisma migrate dev --create-only",
+    "prisma:migrate": "npx prisma migrate deploy",
+    "prisma:studio": "npx prisma studio"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@primevue/themes": "^4.1.0",
+    "@prisma/client": "^5.20.0",
+    "nuxt": "^3.13.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.1.0",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@primevue/nuxt-module": "^4.1.0",
+    "prisma": "^5.20.0"
+  }
+}
