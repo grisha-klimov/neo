@@ -7,8 +7,9 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module"],
+  modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "@nuxt/content"],
   css: ["primeicons/primeicons.css"],
+  ignore: [process.env.NODE_ENV === "production" ? "-*" : ""],
   primevue: {
     options: {
       theme: {
