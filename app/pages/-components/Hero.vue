@@ -1,5 +1,5 @@
 <template>
-  <div class="hero grid gap-[16px]">
+  <div class="inset-x-0 grid gap-4">
     <div>
       <h1 class="flex text-[40px] font-semibold leading-[56px] sm:text-[48px]">
         Hey, I'm Jackson.
