@@ -1,0 +1,18 @@
+.p-button {
+  --p-button-padding-x: 24px;
+  --p-button-padding-y: 8px;
+  --p-button-sm-font-size: 14px;
+  --p-button-primary-background: #2c2c2c;
+  --p-button-primary-color: #f6f6f6;
+  --p-button-border-radius: 6px;
+  --p-button-primary-border-color: #393939;
+  --p-button-primary-hover-background: #858585;
+  --p-button-primary-hover-border-color: #ddd;
+  --p-button-primary-active-background: #858585;
+  --p-button-primary-active-border-color: #ddd;
+}
+
+.p-inputtext {
+  --p-inputtext-background: #1c1c1c;
+  font-size: 14px;
+}

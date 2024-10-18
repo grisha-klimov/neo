@@ -8,13 +8,31 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "@nuxt/content"],
-  css: ["primeicons/primeicons.css"],
+  app: {
+    head: {
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap",
+        },
+      ],
+    },
+  },
+  css: ["primeicons/primeicons.css", "./assets/css/app.css"],
   ignore: [process.env.NODE_ENV === "production" ? "-*" : ""],
   primevue: {
     options: {
       theme: {
         preset: Aura,
       },
+    },
+  },
+  postcss: {
+    plugins: {
+      "postcss-import": {},
+      "@tailwindcss/nesting": {},
+      tailwindcss: {},
+      autoprefixer: {},
     },
   },
 });
