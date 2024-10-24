@@ -7,9 +7,9 @@ import Thoughts from './-components/Thoughts.vue'
 
 <template>
   <main>
-    <div class="container max-w-[960px]">
+    <div class="container max-w-5xl">
       <div
-        class="grid gap-[24px] px-[24px] pb-[48px] pt-[120px] md:gap-[48px] md:px-[48px] md:pt-[140px]"
+        class="grid gap-6 py-16 md:gap-12 md:py-32"
       >
         <Hero />
         <NewDrops />

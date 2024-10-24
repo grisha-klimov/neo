@@ -21,25 +21,25 @@ const products = [
 </script>
 
 <template>
-  <div class="grid gap-[24px]">
+  <div class="grid gap-6">
     <h2>New Drops</h2>
-    <div class="grid gap-4 md:grid-cols-2 md:gap-[32px]">
+    <div class="grid gap-4 md:grid-cols-2 md:gap-6">
       <a
         v-for="(product, index) in products"
         :key="index"
-        class="group overflow-hidden rounded-[8px] border border-[#242424] bg-[#1c1c1c]"
+        class="group overflow-hidden rounded-[8px] border border-zinc-500 bg-zinc-800/50"
         href="#"
       >
         <img :src="product.image" :alt="product.alt">
         <div class="flex items-end gap-4 p-4">
           <div class="flex-1">
-            <h3 class="text-[14px] font-semibold text-[#f6f6f6]">
+            <h3 class="text-sm font-semibold">
               {{ product.name }}
             </h3>
-            <p class="text-[14px] text-[#858585]">{{ product.description }}</p>
+            <p class="text-sm text-zinc-500">{{ product.description }}</p>
           </div>
           <div
-            class="flex-none rounded-[40px] border border-[#242424] bg-[#1c1c1c] px-[12px] py-[6px] text-[12px] text-[#858585]"
+            class="flex-none rounded-full border border-zinc-800 bg-zinc-900 px-3 py-2 text-xs text-zinc-400"
           >
             {{ product.price }}
           </div>

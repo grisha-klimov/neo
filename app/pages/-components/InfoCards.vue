@@ -16,23 +16,23 @@ const cards = [
 </script>
 
 <template>
-  <div class="grid gap-[24px] md:grid-cols-2">
+  <div class="grid gap-6 md:grid-cols-2">
     <div
       v-for="(card, index) in cards"
       :key="index"
-      class="flex flex-col items-start gap-[24px] rounded-[8px] border border-[#242424] bg-[#1c1c1c] p-[24px]"
+      class="flex flex-col items-start gap-6 rounded-lg border border-zinc-700 p-6"
     >
       <div
-        class="flex size-[40px] items-center justify-center rounded-full bg-[#2c2c2c]"
+        class="flex size-10 items-center justify-center rounded-full bg-zinc-800"
       >
-        <i :class="card.icon" class="text-[20px] text-white" />
+        <i :class="card.icon" class="text-lg" />
       </div>
 
       <div class="flex-1">
-        <h3 class="text-[14px] font-semibold text-[#f6f6f6]">
+        <h3 class="text-sm font-semibold">
           {{ card.title }}
         </h3>
-        <p class="text-[14px] text-[#858585]">
+        <p class="text-sm text-zinc-500">
           {{ card.description }}
         </p>
       </div>

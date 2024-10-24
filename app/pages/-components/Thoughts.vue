@@ -37,49 +37,49 @@ const articles = [
 </script>
 
 <template>
-  <div class="rounded-[8px] border border-[#393939]">
-    <div class="px-[12px] py-[24px]">
-      <div class="px-[12px]">
+  <div class="overflow-hidden rounded-lg border border-zinc-700">
+    <div class="px-3 py-6">
+      <div class="px-3">
         <h2>Thoughts</h2>
-        <p class="text-[14px] text-[#858585]">
+        <p class="text-sm text-zinc-500">
           Sharing experiences, knowledge and videos on design & tech.
         </p>
       </div>
 
-      <div class="mt-[24px] grid md:grid-cols-2">
+      <div class="mt-6 grid md:grid-cols-2">
         <a
           v-for="(article, index) in articles"
           :key="index"
           href="#"
-          class="flex items-center gap-4 rounded-[8px] border border-transparent p-[12px] transition-all duration-300 hover:border-[#242424] hover:bg-[#1c1c1c]"
+          class="flex items-center gap-4 rounded-lg border border-transparent p-3 transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-800/30"
         >
           <div
-            class="flex size-[40px] items-center justify-center rounded-[6px] bg-[#2c2c2c]"
+            class="flex size-10 items-center justify-center rounded-lg bg-zinc-800"
           >
             <i
               :class="article.icon"
-              class="text-[20px] font-semibold text-[#f6f6f6]"
+              class="text-xl font-semibold"
             />
           </div>
           <div>
-            <p class="text-[14px] font-medium">{{ article.title }}</p>
-            <p class="text-[14px] text-[#858585]">{{ article.category }}</p>
+            <p class="text-sm font-medium">{{ article.title }}</p>
+            <p class="text-sm text-zinc-500">{{ article.category }}</p>
           </div>
         </a>
       </div>
     </div>
 
-    <div class="grid gap-4 bg-[#1c1c1c] p-[24px] md:grid-cols-2">
+    <div class="grid gap-4 bg-zinc-800/50 p-6 md:grid-cols-2">
       <div>
-        <h3 class="text-[14px] font-medium text-[#f6f6f6]">
+        <h3 class="text-sm">
           Join 1K+ Readers
         </h3>
-        <p class="text-[14px] text-[#858585]">
+        <p class="text-sm text-zinc-500">
           Sent out every two weeks. No spam.
         </p>
       </div>
 
-      <div class="flex gap-[8px]">
+      <div class="flex gap-2">
         <InputText type="text" class="flex-1" placeholder="Your E-Mail" />
         <Button label="Subscribe" class="w-[100px] flex-none" />
       </div>

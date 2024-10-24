@@ -1,6 +1,6 @@
 @layer base {
   body {
-    @apply font-inter min-w-[320px] bg-[#161616] text-[#f6f6f6] antialiased;
+    @apply font-inter min-w-[320px] bg-zinc-900 text-white antialiased;
   }
 
   h1,
@@ -9,11 +9,7 @@
   h4,
   h5,
   h6 {
-    @apply text-balance text-[#f6f6f6];
-  }
-
-  h2 {
-    @apply text-[16px] font-semibold;
+    @apply text-balance font-semibold;
   }
 
   p {
