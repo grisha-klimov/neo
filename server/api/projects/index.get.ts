@@ -32,14 +32,11 @@ export default defineEventHandler(async (event) => {
     const totalPages = Math.ceil(total / limit)
 
     return {
-      statusCode: 200,
       data: products,
-      meta: {
-        total,
-        page,
-        limit,
-        totalPages,
-      },
+      total,
+      page,
+      limit,
+      totalPages,
     }
   }
   catch (error) {

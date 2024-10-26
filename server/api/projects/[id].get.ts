@@ -1,42 +1,37 @@
 import { prisma } from '~~/server/prisma'
-import { z } from 'zod'
 
-export default defineEventHandler(async (event) => {
-  try {
-    const id = getRouterParam(event, 'id')
+export default defineEventHandler({
+  onRequest: [handleId],
+  async handler(event) {
+    const id = event.context.id as string
 
-    const idSchema = z.string().uuid('ID must be a valid UUID')
-
-    const validatedId = idSchema.parse(id)
-
-    const project = await prisma.project.findUnique({
-      where: { id: validatedId },
-    })
-
-    if (!project) {
-      throw createError({
-        statusCode: 404,
-        statusMessage: 'Project not found',
+    try {
+      const project = await prisma.project.findUnique({
+        where: { id },
       })
-    }
 
-    return {
-      statusCode: 200,
-      data: project,
+      if (!project) {
+        throw createError({
+          statusCode: 404,
+          statusMessage: 'Project not found',
+        })
+      }
+
+      return project
     }
-  }
-  catch (error) {
-    if (error instanceof Error) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: error.message,
-      })
+    catch (error) {
+      if (error instanceof Error) {
+        throw createError({
+          statusCode: 500,
+          statusMessage: error.message,
+        })
+      }
+      else {
+        throw createError({
+          statusCode: 500,
+          statusMessage: 'An unknown error occurred',
+        })
+      }
     }
-    else {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'An unknown error occurred',
-      })
-    }
-  }
+  },
 })
