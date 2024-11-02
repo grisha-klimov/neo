@@ -20,18 +20,10 @@ export default defineEventHandler({
       return project
     }
     catch (error) {
-      if (error instanceof Error) {
-        throw createError({
-          statusCode: 500,
-          statusMessage: error.message,
-        })
-      }
-      else {
-        throw createError({
-          statusCode: 500,
-          statusMessage: 'An unknown error occurred',
-        })
-      }
+      throw createError({
+        statusCode: 500,
+        statusMessage: error instanceof Error ? error.message : 'An unknown error occurred',
+      })
     }
   },
 })

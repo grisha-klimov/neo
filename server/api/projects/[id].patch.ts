@@ -5,7 +5,7 @@ export default defineEventHandler({
   onRequest: [handleId],
   async handler(event) {
     try {
-      const id = event.context.id
+      const id = event.context.id as string
       const body = await readBody(event)
 
       const projectUpdateSchema = z.object({
