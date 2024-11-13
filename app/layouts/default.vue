@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { useMediaQuery } from '@vueuse/core'
 import Button from 'primevue/button'
 import Drawer from 'primevue/drawer'
-import { ref } from 'vue'
 
 const visible = ref(false)
-const isMobile = useMediaQuery('(max-width: 767px)')
 
 function toggleSidebar() {
   visible.value = !visible.value
@@ -18,11 +15,11 @@ function closeSidebar() {
 
 <template>
   <div>
-    <div v-if="isMobile" class="flex justify-end p-4">
+    <div class="flex lg:hidden justify-end p-4">
       <Button icon="pi pi-bars" @click="toggleSidebar" />
     </div>
 
-    <Drawer v-if="isMobile" v-model:visible="visible" header="Menu">
+    <Drawer class="lg:hidden" v-model:visible="visible" header="Menu">
       <nav class="grid gap-2">
         <NuxtLink to="/" @click="closeSidebar">
           Home
@@ -35,8 +32,7 @@ function closeSidebar() {
 
     <div class="flex items-stretch">
       <aside
-        v-if="!isMobile"
-        class="sticky left-0 top-0 h-screen w-64 flex-none border-r border-zinc-600 bg-zinc-800 p-6"
+        class="sticky hidden lg:block left-0 top-0 h-screen w-64 flex-none border-r border-zinc-600 bg-zinc-800 p-6"
       >
         <nav class="grid gap-2">
           <NuxtLink to="/">
