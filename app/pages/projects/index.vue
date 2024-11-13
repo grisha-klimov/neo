@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const { data } = useFetch('/api/projects')
-const projects = computed(() => data.value?.data || [])
+const { data } = await useFetch('/api/projects')
+const projects = data.value?.data || []
 
 // useFetch/useAsyncData/$fetch/__NUXT_DATA__
 </script>
