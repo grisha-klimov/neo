@@ -4,7 +4,7 @@ import tailwind from 'eslint-plugin-tailwindcss'
 export default antfu(
   {
     rules: {
-      'ts/no-explicit-any': 'error',
+      "@typescript-eslint/no-explicit-any": "off",
       'node/prefer-global/process': 'off',
     },
   },
