@@ -1,19 +1,26 @@
-import type { Prisma } from '@prisma/client'
 import { prisma } from '~~/server/prisma'
+import { z } from 'zod'
+
+const schema = z.object({
+  name: z.string(),
+  description: z.string(),
+  image: z.string(),
+})
 
 export default defineEventHandler(async (event) => {
+  const body = await readBody<z.infer<typeof schema>>(event)
+  const { data, error } = schema.safeParse(body)
+
+  if (error) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: error.message,
+    })
+  }
+
+  const { name, description, image } = data
+
   try {
-    const body = await readBody<Prisma.ProjectCreateInput>(event)
-
-    const { name, description, image } = body
-
-    if (!name) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Field `name` is required',
-      })
-    }
-
     const newProject = await prisma.project.create({
       data: {
         name,
@@ -22,23 +29,12 @@ export default defineEventHandler(async (event) => {
       },
     })
 
-    return {
-      statusCode: 201,
-      data: newProject,
-    }
+    return newProject
   }
   catch (error) {
-    if (error instanceof Error) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: error.message,
-      })
-    }
-    else {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'An unknown error occurred',
-      })
-    }
+    throw createError({
+      statusCode: 500,
+      statusMessage: error instanceof Error ? error.message : 'An unknown error occurred',
+    })
   }
 })

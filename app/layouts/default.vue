@@ -19,7 +19,7 @@ function closeSidebar() {
       <Button icon="pi pi-bars" @click="toggleSidebar" />
     </div>
 
-    <Drawer class="lg:hidden" v-model:visible="visible" header="Menu">
+    <Drawer v-model:visible="visible" class="lg:hidden" header="Menu">
       <nav class="grid gap-2">
         <NuxtLink to="/" @click="closeSidebar">
           Home

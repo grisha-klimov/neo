@@ -13,12 +13,11 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/fonts',
     '@vueuse/nuxt',
-    '@pinia/nuxt',
   ],
   css: ['primeicons/primeicons.css', './assets/css/app.css'],
   ignore: [process.env.NODE_ENV === 'production' ? '-*' : ''],
   tailwindcss: {
-    viewer: false
+    viewer: false,
   },
   primevue: {
     options: {

@@ -1,56 +1,33 @@
 import { prisma } from '~~/server/prisma'
 import { z } from 'zod'
 
+const LIMIT = 6
+
 export default defineEventHandler(async (event) => {
+  const query = getQuery(event)
+
+  const paginationSchema = z.object({
+    cursor: z.string().uuid().optional(),
+  })
+
   try {
-    const query = getQuery(event)
-
-    const paginationSchema = z.object({
-      page: z.coerce
-        .number()
-        .int()
-        .positive()
-        .default(1),
-      limit: z.coerce
-        .number()
-        .int()
-        .positive()
-        .default(10),
-    })
-
-    const { page, limit } = paginationSchema.parse(query)
-
-    const skip = (page - 1) * limit
-
-    const total = await prisma.project.count()
+    const { cursor } = paginationSchema.parse(query)
 
     const products = await prisma.project.findMany({
-      skip,
-      take: limit,
+      skip: cursor ? 1 : 0,
+      cursor: cursor ? { id: cursor } : undefined,
+      take: LIMIT + 1,
     })
 
-    const totalPages = Math.ceil(total / limit)
-
     return {
-      data: products,
-      total,
-      page,
-      limit,
-      totalPages,
+      data: products.slice(0, LIMIT),
+      hasMore: products.length > LIMIT,
     }
   }
   catch (error) {
-    if (error instanceof Error) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: error.message,
-      })
-    }
-    else {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'An unknown error occurred',
-      })
-    }
+    throw createError({
+      statusCode: 500,
+      message: error instanceof Error ? error.message : 'An unknown error occurred',
+    })
   }
 })
