@@ -14,7 +14,7 @@ datasource db {
   directUrl = env("DATABASE_DIRECT_URL")
 }
 
-model Project {
+model Project { // Product
   id               String   @id @default(uuid())
   createdAt        DateTime @default(now()) @db.Timestamptz(3)
   updatedAt        DateTime @updatedAt @db.Timestamptz(3)
@@ -23,3 +23,13 @@ model Project {
   description      String
   shortDescription String
 }
+
+// User
+// bcrypt
+// jsonwebtoken
+
+// Basket
+
+// Order
+
+// Payment
