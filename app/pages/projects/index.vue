@@ -1,16 +1,14 @@
 <script setup lang="ts">
-const hasMore = ref(true)
-
 const { data: projects, status } = await useFetch('/api/projects', {
   lazy: true,
-  transform: data => reactive(data),
+  deep: true,
 })
 
 const scroll = ref<HTMLDivElement>()
 const scrollIsVisible = useElementVisibility(scroll)
 
 async function loadProjects() {
-  if (status.value === 'pending' || !projects.value || !hasMore.value)
+  if (status.value === 'pending' || !projects.value || !projects.value.hasMore)
     return
 
   status.value = 'pending'
@@ -23,7 +21,7 @@ async function loadProjects() {
     })
 
     projects.value.data.push(...data)
-    hasMore.value = has
+    projects.value.hasMore = has
     status.value = 'success'
   }
   catch (error) {
