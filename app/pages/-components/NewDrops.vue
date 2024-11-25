@@ -27,7 +27,7 @@ const products = [
       <a
         v-for="(product, index) in products"
         :key="index"
-        class="group overflow-hidden rounded-[8px] border border-zinc-500 bg-zinc-800/50"
+        class="group overflow-hidden rounded-lg border border-zinc-500 bg-zinc-800/50"
         href="#"
       >
         <img :src="product.image" :alt="product.alt">

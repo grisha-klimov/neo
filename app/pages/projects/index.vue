@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const hasMore = ref(true)
+
 const { data: projects, status } = await useFetch('/api/projects', {
   lazy: true,
+  transform: data => reactive(data),
 })
 
 const scroll = ref<HTMLDivElement>()
@@ -44,8 +46,8 @@ watch(scrollIsVisible, (isVisible) => {
         Projects
       </h1>
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div
-          v-for="project in projects?.data" :key="project.id"
+        <NuxtLink
+          v-for="project in projects?.data" :key="project.id" :to="`/projects/${project.id}`"
           class="group overflow-hidden rounded-[8px] border border-zinc-500 bg-zinc-800/50"
         >
           <img :src="project.image" :alt="project.name">
@@ -55,11 +57,11 @@ watch(scrollIsVisible, (isVisible) => {
                 {{ project.name }}
               </h2>
               <p class="text-sm text-zinc-500">
-                {{ project.description }}
+                {{ project.shortDescription }}
               </p>
             </div>
           </div>
-        </div>
+        </NuxtLink>
       </div>
       <div ref="scroll" class="py-10" />
     </div>

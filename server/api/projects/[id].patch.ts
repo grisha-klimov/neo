@@ -10,6 +10,7 @@ export default defineEventHandler({
 
       const projectUpdateSchema = z.object({
         name: z.string().optional(),
+        shortDescription: z.string().optional(),
         description: z.string().optional(),
         image: z.string().url('Field `image` must be a valid URL').optional(),
       })
@@ -19,7 +20,7 @@ export default defineEventHandler({
       if (Object.keys(validatedData).length === 0) {
         throw createError({
           statusCode: 400,
-          statusMessage: 'No fields provided for update',
+          message: 'No fields provided for update',
         })
       }
 
@@ -29,7 +30,6 @@ export default defineEventHandler({
       })
 
       return {
-        statusCode: 200,
         data: updatedProject,
       }
     }
@@ -37,13 +37,13 @@ export default defineEventHandler({
       if (error instanceof Error) {
         throw createError({
           statusCode: 500,
-          statusMessage: error.message,
+          message: error.message,
         })
       }
       else {
         throw createError({
           statusCode: 500,
-          statusMessage: 'An unknown error occurred',
+          message: 'An unknown error occurred',
         })
       }
     }

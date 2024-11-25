@@ -1,7 +1,7 @@
 import { prisma } from '~~/server/prisma'
 import { z } from 'zod'
 
-const LIMIT = 6
+const LIMIT = 4
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)

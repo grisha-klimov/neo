@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 const schema = z.object({
   name: z.string(),
+  shortDescription: z.string(),
   description: z.string(),
   image: z.string(),
 })
@@ -14,27 +15,26 @@ export default defineEventHandler(async (event) => {
   if (error) {
     throw createError({
       statusCode: 400,
-      statusMessage: error.message,
+      message: error.message,
     })
   }
 
-  const { name, description, image } = data
+  const { name, shortDescription, description, image } = data
 
   try {
-    const newProject = await prisma.project.create({
+    return await prisma.project.create({
       data: {
         name,
+        shortDescription,
         description,
         image,
       },
     })
-
-    return newProject
   }
   catch (error) {
     throw createError({
       statusCode: 500,
-      statusMessage: error instanceof Error ? error.message : 'An unknown error occurred',
+      message: error instanceof Error ? error.message : 'An unknown error occurred',
     })
   }
 })
