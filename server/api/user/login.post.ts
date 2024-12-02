@@ -1,12 +1,9 @@
 import { prisma } from '~~/server/prisma'
+import { generateTokens } from '~~/server/utils/tokens'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-
-const secretKey = process.env.JWT_SECRET || 'defaultSecretKey'
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
-  const { email, password } = body
+  const { email, password } = await readBody(event)
 
   const user = await prisma.user.findUnique({
     where: { email },
@@ -14,6 +11,7 @@ export default defineEventHandler(async (event) => {
 
   if (!user) {
     throw createError({
+      statusCode: 404,
       message: 'No user found',
     })
   }
@@ -22,15 +20,10 @@ export default defineEventHandler(async (event) => {
 
   if (!validPassword) {
     throw createError({
+      statusCode: 403,
       statusMessage: 'Invalid email or password',
     })
   }
 
-  const token = jwt.sign(
-    { id: user.id, email: user.email },
-    secretKey,
-    { expiresIn: '1h' },
-  )
-
-  return { token }
+  return generateTokens(user)
 })

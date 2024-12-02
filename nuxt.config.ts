@@ -6,6 +6,9 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  runtimeConfig: {
+    jwtSecret: process.env.JWT_SECRET,
+  },
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',

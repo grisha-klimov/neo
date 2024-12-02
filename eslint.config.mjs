@@ -10,4 +10,3 @@ export default antfu(
   },
   ...tailwind.configs['flat/recommended'],
 )
-

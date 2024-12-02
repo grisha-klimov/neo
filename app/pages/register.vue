@@ -1,44 +1,50 @@
 <script lang="ts" setup>
-import { Form } from "@primevue/forms";
-import { zodResolver } from "@primevue/forms/resolvers/zod";
-import { useToast } from "primevue/usetoast";
-import { z } from "zod";
+import { Form } from '@primevue/forms'
+import { zodResolver } from '@primevue/forms/resolvers/zod'
+import { useMutation } from '@tanstack/vue-query'
+import { useToast } from 'primevue/usetoast'
 
-const toast = useToast();
-const router = useRouter();
+import { z } from 'zod'
 
-const resolver = zodResolver(
-  z.object({
-    email: z.string().email(),
-    password: z.string().min(8)
-  })
-);
+const toast = useToast()
+const router = useRouter()
 
-async function onFormSubmit(data: any) {
-  if (data.valid) {
-    try {
-      await $fetch("/api/user/register", {
-        method: "POST",
-        body: data.values
-      });
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+})
 
-      toast.add({ severity: "success", summary: "Success", detail: "Registration successful", life: 3000 });
-      await router.push('/login')
-    } catch (error: any) {
-      const message = error.data?.message || "An error occurred";
-      toast.add({ severity: "error", summary: "Error", detail: message, life: 3000 });
-    }
-  }
-}
+const { mutate, isPending } = useMutation({
+  mutationKey: ['register'],
+  mutationFn: (data: any) => $fetch('/api/user/register', {
+    method: 'POST',
+    body: data,
+  }),
+  onSuccess: ({ accessToken }) => {
+    toast.add({ severity: 'success', summary: 'Success', detail: 'Registration successful', life: 3000 })
+    localStorage.setItem('token', accessToken)
+    router.push('/')
+  },
+  onError: (error) => {
+    const message = (error as any).data?.message || 'An error occurred'
+    toast.add({ severity: 'error', summary: 'Error', detail: message, life: 3000 })
+  },
+})
+
+const resolver = zodResolver(schema)
 </script>
 
 <template>
   <div class="container max-w-5xl">
-    <div class="py-8 md:py-16 text-center">
+    <div class="py-8 text-center md:py-16">
       <h1 class="mb-4 text-2xl font-bold">
         Registration
       </h1>
-      <Form :resolver="resolver" class="flex w-full flex-col items-center gap-4 sm:w-60 mx-auto" @submit="onFormSubmit">
+      <Form
+        :resolver="resolver"
+        class="mx-auto flex w-full flex-col items-center gap-4 sm:w-60"
+        @submit="({ values }) => mutate(values)"
+      >
         <FormField v-slot="$field" name="email" class="flex flex-col gap-1">
           <InputText type="email" placeholder="Email" />
           <Message v-if="$field.invalid" severity="error" size="small" variant="simple">
@@ -51,7 +57,7 @@ async function onFormSubmit(data: any) {
             {{ $field.error.message }}
           </Message>
         </FormField>
-        <Button type="submit" severity="secondary" label="Register" />
+        <Button :loading="isPending" type="submit" severity="secondary" label="Register" />
       </Form>
       <Toast />
     </div>
