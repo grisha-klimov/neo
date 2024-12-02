@@ -15,7 +15,7 @@ function closeSidebar() {
 
 <template>
   <div>
-    <div class="flex lg:hidden justify-end p-4">
+    <div class="flex justify-end p-4 lg:hidden">
       <Button icon="pi pi-bars" @click="toggleSidebar" />
     </div>
 
@@ -32,7 +32,7 @@ function closeSidebar() {
 
     <div class="flex items-stretch">
       <aside
-        class="sticky hidden lg:block left-0 top-0 h-screen w-64 flex-none border-r border-zinc-600 bg-zinc-800 p-6"
+        class="sticky left-0 top-0 hidden h-screen w-64 flex-none border-r border-zinc-600 bg-zinc-800 p-6 lg:block"
       >
         <nav class="grid gap-2">
           <NuxtLink to="/">
@@ -40,6 +40,12 @@ function closeSidebar() {
           </NuxtLink>
           <NuxtLink to="/projects">
             Projects
+          </NuxtLink>
+          <NuxtLink to="/register">
+            Registration
+          </NuxtLink>
+          <NuxtLink to="/login">
+            Login
           </NuxtLink>
         </nav>
       </aside>
