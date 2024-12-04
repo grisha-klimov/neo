@@ -1,7 +1,7 @@
 import { prisma } from '~~/server/prisma'
 
 export default defineEventHandler({
-  onRequest: [handleId],
+  onRequest: [handleAuth, handleId],
   async handler(event) {
     const id = event.context.id as string
 

@@ -2,7 +2,7 @@
 const route = useRoute()
 const { id } = route.params
 
-const { data: project } = await useFetch(`/api/projects/${id}`)
+const { data: project } = await useAppFetch(`/api/projects/${id}`)
 </script>
 
 <template>

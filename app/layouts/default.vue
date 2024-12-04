@@ -41,11 +41,11 @@ function closeSidebar() {
           <NuxtLink to="/projects">
             Projects
           </NuxtLink>
-          <NuxtLink to="/register">
-            Registration
+          <NuxtLink to="/sign-up">
+            Sign Up
           </NuxtLink>
-          <NuxtLink to="/login">
-            Login
+          <NuxtLink to="/sign-in">
+            Sign In
           </NuxtLink>
         </nav>
       </aside>

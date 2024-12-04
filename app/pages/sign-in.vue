@@ -15,14 +15,16 @@ const resolver = zodResolver(
   }),
 )
 
+const tokens = useAuthTokens()
+
 const { mutate, isPending } = useMutation({
   mutationKey: ['login'],
-  mutationFn: (data: any) => $fetch('/api/user/login', {
+  mutationFn: (data: any) => $fetch('/api/auth/sign-in', {
     method: 'POST',
     body: data,
   }),
-  onSuccess: ({ accessToken }) => {
-    localStorage.setItem('token', accessToken)
+  onSuccess: (res) => {
+    tokens.value = res
     toast.add({ severity: 'success', summary: 'Success', detail: 'Authorization successful', life: 3000 })
     router.push('/')
   },

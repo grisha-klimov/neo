@@ -1,5 +1,6 @@
 import type { User } from '@prisma/client'
 import jwt from 'jsonwebtoken'
+import { prisma } from '../prisma'
 
 export function generateToken(data: Record<string, unknown>, expiresIn: string) {
   const { jwtSecret } = useRuntimeConfig()
@@ -7,9 +8,16 @@ export function generateToken(data: Record<string, unknown>, expiresIn: string) 
   return jwt.sign(data, jwtSecret, { expiresIn })
 }
 
-export function generateTokens(user: Omit<User, 'password'>) {
-  const accessToken = generateToken(user, '1h')
-  const refreshToken = generateToken(user, '7d')
+export async function generateTokens({ password: _p, ...user }: User) {
+  const accessToken = generateToken(user, '30m')
+  const refreshToken = generateToken({ id: user.id }, '7d')
+
+  await prisma.token.create({
+    data: {
+      token: refreshToken,
+      userId: user.id,
+    },
+  })
 
   return { accessToken, refreshToken }
 }

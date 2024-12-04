@@ -14,15 +14,17 @@ const schema = z.object({
   password: z.string().min(8),
 })
 
+const tokens = useAuthTokens()
+
 const { mutate, isPending } = useMutation({
   mutationKey: ['register'],
-  mutationFn: (data: any) => $fetch('/api/user/register', {
+  mutationFn: (data: any) => $fetch('/api/auth/sign-up', {
     method: 'POST',
     body: data,
   }),
-  onSuccess: ({ accessToken }) => {
+  onSuccess: (res) => {
+    tokens.value = res
     toast.add({ severity: 'success', summary: 'Success', detail: 'Registration successful', life: 3000 })
-    localStorage.setItem('token', accessToken)
     router.push('/')
   },
   onError: (error) => {
